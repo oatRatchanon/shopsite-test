@@ -1,0 +1,37 @@
+-- Answer #1
+SELECT 
+    AGENT_CODE, 
+    SUM(ORD_AMOUNT) AS TOTAL_ORD_AMOUNT
+FROM 
+    orders
+GROUP BY 
+    AGENT_CODE
+ORDER BY 
+    TOTAL_ORD_AMOUNT DESC
+LIMIT 1;
+
+-- Answer #2
+SELECT 
+    c.CUST_CODE, 
+    c.CUST_NAME, 
+    SUM(o.ORD_AMOUNT) AS TOTAL_SPENT
+FROM 
+    customer c
+JOIN 
+    orders o ON c.CUST_CODE = o.CUST_CODE
+GROUP BY 
+    c.CUST_CODE, 
+    c.CUST_NAME
+HAVING 
+    TOTAL_SPENT > 5000.00;
+
+-- Answer #3
+SELECT 
+    AGENT_CODE, 
+    COUNT(*) AS TOTAL_ORDERS
+FROM 
+    orders
+WHERE 
+    ORD_DATE BETWEEN '2008-07-01' AND '2008-07-31'
+GROUP BY 
+    AGENT_CODE;
